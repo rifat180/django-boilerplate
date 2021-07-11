@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block title %} Home {% endblock title %} | Online Shopping</title>
+
+    <link rel="stylesheet" href="{% static 'css/tailwind.min.css' %}">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div id="toast-message-container" class="absolute right-0 text-white" style="width: 22rem; z-index:999;">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="toast-message p-3 mb-2 shadow {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% block content %}
+        <p>This page is under development</p>
+    {% endblock content %}
+
+    {% include 'footer.html' %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block script %} {% endblock script %}
+</body>
+</html>

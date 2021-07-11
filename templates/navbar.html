@@ -1,0 +1,67 @@
+<header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <a href="{% url 'public:home' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+                 stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+                 viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl">Website</span>
+        </a>
+        <nav class="md:ml-auto flex flex-wrap items-center text-base text-gray-400 transition-all duration-1000 justify-center">
+            {% if request.user.is_authenticated %}
+            <a class="mr-5 hover:text-gray-900">Dashboard</a>
+            <a class="mr-5 hover:text-gray-900">Profile</a>
+            {% else %}
+            <a href="{% url 'public:home' %}" class="mr-5 hover:text-gray-900">Home</a>
+            <a class="mr-5 hover:text-gray-900">About</a>
+            <a class="mr-5 hover:text-gray-900">Contact</a>
+            {% endif %}
+        </nav>
+        {% if not request.user.is_authenticated %}
+        <form action="{% url 'public:sign-in' %}" method="post">
+            {% csrf_token %}
+            <span class="w-48 inline-block relative">
+                <label for="user-email"
+                       class="block w-full text-gray-400 absolute bottom-0 cursor-text transition-all duration-500">Email</label>
+                <input type="email" name="user-email" id="user-email"
+                       class="block text-sm w-full border-b-2 border-gray-500 transition-all duration-500 focus:outline-none">
+            </span>
+            <span class="w-48 inline-block relative">
+                <label for="user-password"
+                       class="block w-full text-gray-400 absolute bottom-0 cursor-text transition-all duration-500">Password</label>
+                <input type="password" name="user-password" id="user-password"
+                       class="block text-sm w-full border-b-2 border-gray-500 transition-all duration-500 focus:outline-none">
+            </span>
+            <button type="submit" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Sign in</button>
+        </form>
+        <script>
+                document.querySelectorAll("form input").forEach(input => {
+                    input.addEventListener("focusin", e => {
+                        let label = e.target.parentElement.querySelector("label")
+                        label.style.bottom = "1.4rem"
+                        label.style.fontSize = "0.8em"
+                        label.classList.add("text-blue-500")
+                        input.classList.add("border-blue-500")
+                    })
+                    input.addEventListener("focusout", e => {
+                        if(e.target.value.length <= 0){
+                            let label = e.target.parentElement.querySelector("label")
+                            label.style.bottom = "0"
+                            label.style.fontSize = "1em"
+                            label.classList.remove("text-blue-500")
+                            input.classList.remove("border-blue-500")
+                        }
+                    })
+                })
+
+
+
+
+        </script>
+        {% else %}
+        <a href="{% url 'public:sign-out' %}" class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Sign
+            out</a>
+        {% endif %}
+    </div>
+</header>

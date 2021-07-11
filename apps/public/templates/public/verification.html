@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="table mx-auto" action="{% url 'public:verification' username %}" method="post">
+    {% csrf_token %}
+    <label for="verification-code" class="block">Verification Code</label>
+    <div>
+        <input class="border rounded-tl-md rounded-bl-md p-3 focus:border-indigo-400 focus:outline-none" type="text"
+               name="verification-code" id="verification-code" placeholder="Verification Code">
+        <button class="border rounded-tr-md rounded-br-md p-3 bg-indigo-400 text-white hover:bg-indigo-500"
+                type="submit">Submit
+        </button>
+    </div>
+</form>
+
+{% endblock content %}

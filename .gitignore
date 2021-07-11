@@ -1,0 +1,7 @@
+venv
+db.sqlite3
+config.ini
+media
+**/__pycache__
+.idea
+.vscode
